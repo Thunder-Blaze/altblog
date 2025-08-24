@@ -1,16 +1,11 @@
 ---
 title: Algorithms
 description: Some to remember CP Algos & Properties
-slug: algorithms
-date: 2025-02-01 00:00:00+0000
-image: cover.jpg
-math: true
-categories:
-    - Frontend
-    - CP
-tags:
-    - Frontend
-    - CP
+published: 2025-02-01
+image: 'cover.jpg'
+category: CP
+tags: [Frontend, CP]
+draft: false
 ---
 
 ## **Algorithms & Properties**

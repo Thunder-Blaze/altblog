@@ -1,17 +1,11 @@
 ---
 title: Getting Started with Svelte 5 (and Why You Might Not Need React)
-date: 2025-08-24 00:16:00+0530
-slug: svelte-5-vs-react
-image: cover.jpg
+published: 2025-08-24
+image: 'cover.jpg'
 description: A deep dive into the structure,  reactivity, runes, stores, and load functions in Svelte 5, and how it compares to React.
-tags: 
-  - svelte
-  - react
-  - javascript
-  - frontend
-categories:
-  - web development
-  - frameworks
+tags: [ svelte, react, javascript, frontend ]
+category: Frameworks
+draft: false
 ---
 
 # Getting Started with Svelte 5: Why It Feels Different from React

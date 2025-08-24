@@ -1,19 +1,11 @@
 ---
 title: Zafkiel - An Anilist Client
 description: My journey building Zafkiel, a lightweight and customizable anilist client with Svelte, Shadcn, Tauri, and Rust.
-slug: zafkiel
-date: 2025-08-24 00:17:05+0530
-image: cover.jpg
-categories:
-    - Development
-    - Projects
-tags:
-    - Svelte
-    - Rust
-    - Tauri
-    - AniList
-    - TanStack Query
-    - Shadcn
+published: 2025-08-24
+image: 'cover.jpg'
+category: Projects
+tags: [ svelte, rust, tauri, aniList ]
+draft: false
 ---
 
 # Zafkiel - Building a Native Anilist Client with Svelte, Tauri, and Rust
