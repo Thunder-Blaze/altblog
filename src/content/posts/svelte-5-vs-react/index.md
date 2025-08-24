@@ -12,9 +12,9 @@ draft: false
 
 For most developers, the path into modern frontend development goes something like this: you learn a little HTML and CSS, sprinkle in some JavaScript, then get told that *“if you want to be taken seriously, you need React.”*
 
-React has become the default. Its component-based structure, hook system, and virtual DOM reconciliation process have shaped the way millions of developers think about web interfaces. But that dominance also means many developers assume React’s structure is simply *how frontend frameworks work*.
+[React](https://react.dev/) has become the default. Its component-based structure, hook system, and [virtual DOM](https://legacy.reactjs.org/docs/faq-internals.html) reconciliation process have shaped the way millions of developers think about web interfaces. But that dominance also means many developers assume React’s structure is simply *how frontend frameworks work*.
 
-Svelte - especially in its latest version, **Svelte 5** - politely disagrees. Its structure, reactivity model, and approach to state management are designed around a compiler-first philosophy rather than a runtime-first philosophy. To really appreciate why that matters, let’s unpack what these frameworks are actually made of.
+[Svelte](https://svelte.dev/) - especially in its latest version, **Svelte 5** - politely disagrees. Created By [Rich Harris](https://github.com/rich-harris). Its structure, reactivity model, and approach to state management are designed around a compiler-first philosophy rather than a runtime-first philosophy. To really appreciate why that matters, let’s unpack what these frameworks are actually made of.
 
 ---
 
@@ -54,6 +54,8 @@ In **Svelte**, reactivity is built into the compiler. Assigning to a variable (`
 
 The difference is subtle but important: React reactivity is **runtime-driven**, while Svelte reactivity is **compile-time optimized**.
 
+> Source: [Reactivity in Modern Web Development](https://medium.com/approved-tech/understanding-reactivity-and-state-management-in-modern-web-development-c3b7a354a515)
+
 ---
 
 ## What Side Effects Actually Mean
@@ -63,6 +65,8 @@ The phrase **“side effect”** gets thrown around casually in frontend develop
 In React, side effects live in `useEffect`. You declare dependencies, React runs the effect when they change, and you may return a cleanup function. In practice, this can be error-prone: forgetting dependencies leads to stale values, while adding too many creates unnecessary re-runs.
 
 In Svelte 5, side effects live inside `$effect`. The difference is subtle but important: the compiler analyzes your effect and automatically tracks which values it depends on. You do not manually declare dependencies, so there is less room for mistakes. Moreover, because `$effect` is reserved only for side effects, not computations, it reduces the temptation to use it as a catch-all. Computed values belong in `$derived`, keeping data transformations pure and effects truly external.
+
+> Source: [$effect](https://svelte.dev/docs/svelte/$effect) & [useEffect](https://react.dev/reference/react/useEffect)
 
 ---
 
@@ -80,6 +84,8 @@ The compiler adds sugar: prefixing a store variable with `$` inside a component 
 
 The line between runes and stores is clear: runes are for *local component state*, stores are for *shared global or cross-component state*.
 
+> Source: [stores](https://svelte.dev/docs/svelte/stores)
+
 ---
 
 ## The Role of Data Loading
@@ -92,6 +98,8 @@ SvelteKit simplifies this with a single concept: the **`load` function**. Every 
 * **`+page.server.ts` / `+layout.server.ts`**: runs only on the server, ideal for accessing databases, filesystems, or secret environment variables.
 
 This clear separation removes guesswork. When you read a SvelteKit codebase, you know exactly what runs on the server and what may run in the browser.
+
+> Source: [load functions](https://svelte.dev/docs/kit/load)
 
 ---
 
@@ -124,6 +132,8 @@ Choosing between React and Svelte is not about loyalty, it’s about trade-offs.
 If you want predictability, React is the well-traveled highway. If you want efficiency, simplicity, and a more expressive syntax, Svelte is the smaller, faster road that feels almost suspiciously smooth.
 
 The real takeaway is not that one will “kill” the other - React’s ecosystem is too large for that. The takeaway is that Svelte offers a different structure, one where reactivity is explicit, side effects are cleanly separated, and the compiler takes on more of the work so the browser can do less.
+
+> Both React and Svelte Documentations are really good for learning and the final choice still depends on you, for creating big applications with minimal effort using pre-made packages is doable in React while in Svelte you might need to do what those libraries are doing yourself because of low popularity but its steadily increasing and I still personally prefer Svelte over React.
 
 ---
 

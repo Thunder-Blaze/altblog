@@ -10,6 +10,8 @@ draft: false
 
 # Zafkiel - Building a Native Anilist Client with Svelte, Tauri, and Rust
 
+![Preview](preview.png)
+
 Over the past few months, I’ve been working on a project very close to my heart: **Zafkiel**, a desktop anilist client built with **Svelte, Tauri, and Rust**. The goal has always been simple yet ambitious - to create a fast, lightweight, and customizable app for browsing and tracking anime, one that feels **native, modern, and open to the community**.
 
 Zafkiel is at a stage where I can reflect on why I started it, the choices I made, and the direction it’s heading.
@@ -20,7 +22,7 @@ Zafkiel is at a stage where I can reflect on why I started it, the choices I mad
 
 Existing anime tracking platforms and apps are powerful, but I often found them lacking in either **performance, design flexibility, or openness**. Many desktop clients are simply Electron wrappers, which work but can feel heavy and slow.
 
-I was also inspired by the creative minds behind the creation of **Dantotsu**, an Android application for watching anime, reading manga and light novels with **multi-sourcing**, **extensions** for more features, etc. Sadly it was taken down recently by DMCA but many of its forks are still there. And I also came across a cross-platform Dantotsu (**Dartotsu**) but it was still in much development and it used flutter so the app was really slow and bad in performance.
+I was also inspired by the creative minds behind the creation of **Dantotsu**, an Android application for watching anime, reading manga and light novels with **multi-sourcing**, **extensions** for more features, etc. Sadly it was taken down recently by DMCA but many of its forks are still there. And I also came across a cross-platform Dantotsu ([**Dartotsu**](https://github.com/aayush2622/Dartotsu)) but it was still in much development and it used flutter so the app was really slow and bad in performance.
 
 That is why I decided to create my own client with the following features in mind:
 
@@ -31,7 +33,7 @@ That is why I decided to create my own client with the following features in min
 * **Multi-Sourced** - should have multiple sources and switching between them (*I'll expand on this further later*).
 * **Extensible** - should provide features like extensions which can be installed or uninstalled.
 
-That vision became **Zafkiel** - named after Kurumi Tokisaki’s angel in ***Date A Live*** (*My favorite character btw from this Series*), symbolizing control over time. It felt like the right metaphor for an app meant to give users **control over their anime experience**.
+That vision became [**Zafkiel**](https://date-a-live.fandom.com/wiki/Zafkiel) - named after Kurumi Tokisaki’s angel in [***Date A Live***](https://www.imdb.com/title/tt2575684/) (*My favorite character btw from this Series*), symbolizing control over time. It felt like the right metaphor for an app meant to give users **control over their anime experience**.
 
 ---
 
@@ -41,7 +43,7 @@ That vision became **Zafkiel** - named after Kurumi Tokisaki’s angel in ***Dat
 
 I chose **Svelte** for the frontend because of its **speed, simplicity, reactivity, and developer experience**. Unlike heavier frameworks, Svelte compiles away much of the overhead, leaving a lean and efficient app. This makes UI development **faster and more intuitive**, letting me focus on design and user experience.
 
-To bring flexibility to the design, I integrated **Shadcn** & **Tweakcn** (*Shadcn Themes*), using which I enabled **multi-theme functionality** and **consistent design**. With it, users can seamlessly switch between themes, creating a personalized experience without bloated complexity in the codebase.
+To bring flexibility to the design, I integrated [**Shadcn**](https://shadcn-svelte.com/) & [**Tweakcn**](https://tweakcn.com/) (*Shadcn Themes*), using which I enabled **multi-theme functionality** and **consistent design**. With it, users can seamlessly switch between themes, creating a personalized experience without bloated complexity in the codebase.
 
 ### Backend: Rust + Tauri
 
