@@ -137,3 +137,8 @@ The real takeaway is not that one will “kill” the other - React’s ecosyste
 
 ---
 
+Also check out a blazing fast site made in Svelte - [Rasiel](https://rasiel.thunderblaze.tech)
+
+::github{repo="E31n/Rasiel"}
+
+---
