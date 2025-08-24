@@ -66,7 +66,7 @@ In React, side effects live in `useEffect`. You declare dependencies, React runs
 
 In Svelte 5, side effects live inside `$effect`. The difference is subtle but important: the compiler analyzes your effect and automatically tracks which values it depends on. You do not manually declare dependencies, so there is less room for mistakes. Moreover, because `$effect` is reserved only for side effects, not computations, it reduces the temptation to use it as a catch-all. Computed values belong in `$derived`, keeping data transformations pure and effects truly external.
 
-> Source: [$effect](https://svelte.dev/docs/svelte/$effect) & [useEffect](https://react.dev/reference/react/useEffect)
+> Source: [`$effect`](https://svelte.dev/docs/svelte/$effect) & [`useEffect`](https://react.dev/reference/react/useEffect)
 
 ---
 
