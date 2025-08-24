@@ -39,9 +39,9 @@ That vision became [**Zafkiel**](https://date-a-live.fandom.com/wiki/Zafkiel) - 
 
 ## Choosing the Stack
 
-### Frontend: Svelte + Shadcn & Tweakcn
+### Frontend: Svelte with Shadcn & Tweakcn Themes
 
-I chose **Svelte** for the frontend because of its **speed, simplicity, reactivity, and developer experience**. Unlike heavier frameworks, Svelte compiles away much of the overhead, leaving a lean and efficient app. This makes UI development **faster and more intuitive**, letting me focus on design and user experience.
+I chose **Svelte** for the frontend because of its **speed, simplicity, reactivity, and developer experience** (*and it was blazing fast even on my old slow pc*). Unlike heavier frameworks, Svelte compiles away much of the overhead, leaving a lean and efficient app. This makes UI development **faster and more intuitive**, letting me focus on design and user experience.
 
 To bring flexibility to the design, I integrated [**Shadcn**](https://shadcn-svelte.com/) & [**Tweakcn**](https://tweakcn.com/) (*Shadcn Themes*), using which I enabled **multi-theme functionality** and **consistent design**. With it, users can seamlessly switch between themes, creating a personalized experience without bloated complexity in the codebase.
 
@@ -104,6 +104,7 @@ Zafkiel is still a work in progress and there is a long way to go before it goes
 
 With **Svelte** powering the UI, **Tweakcn** providing theming flexibility, **TanStack Query** handling data-fetching experiments, and a **modular Rust backend** ensuring performance and stability, Zafkiel is slowly but surely becoming the client I’ve always wanted.  
 
-It’s not production-ready yet, but the journey has only just begun - and I’m excited to see where it goes from here.  
+The progress was slow because of my pc's limitations but now it will increase exponentially until I break myself.
+It’s not production-ready yet, but the journey has only just begun - and we have a long way to go.  
 
 ---
