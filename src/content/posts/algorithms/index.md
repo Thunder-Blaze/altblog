@@ -4,7 +4,7 @@ description: Some to remember CP Algos & Properties
 published: 2025-02-01
 image: 'cover.jpg'
 category: CP
-tags: [Frontend, CP]
+tags: [CP]
 draft: false
 ---
 

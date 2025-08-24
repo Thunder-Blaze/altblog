@@ -4,7 +4,7 @@ description: My journey building Zafkiel, a lightweight and customizable anilist
 published: 2025-08-24
 image: 'cover.jpg'
 category: Projects
-tags: [ svelte, rust, tauri, aniList ]
+tags: [ svelte, rust, tauri, anilist ]
 draft: false
 ---
 
