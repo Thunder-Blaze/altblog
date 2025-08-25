@@ -30,6 +30,30 @@ So, React’s structure has three major layers:
 
 The advantage of this structure is familiarity and flexibility. The disadvantage is it's weight. React handles the mechanics of change for you but at the cost of shipping the runtime that makes reconciliation work. Even if you are only building a simple counter, it still sends the whole runtime to the browser.
 
+Example Code =>
+
+```jsx
+import React, { useState } from "react";
+
+const StateButton = () => {
+    const [count, setCount] = useState(0);
+
+    const handleClick = () => {
+        setCount(count + 1);
+    }
+
+    return (
+        <button
+            onClick={handleClick}
+        >
+            {count}
+        </button>
+    )
+}
+
+export default StateButton;
+```
+
 ---
 
 # The Structure of a Svelte 5 Application
@@ -43,6 +67,21 @@ Parts of the Svelte's Structure:
 3. **Reactivity** is not a runtime guessing game. In React, you declare dependencies manually in `useEffect` or `useMemo`, *(Introduction of **React Compiler** did fixed some things but it needs more work)*. Forgetting or mis-declaring them is a common source of bugs *(I just faced them a while ago and believe me you don't want to deal with them)*. In Svelte, reactivity is **fine-grained and explicit**: if `count` is used inside `$derived` or `$effect`, the compiler knows exactly when to update.
 
 This structure means a Svelte 5 application has no virtual DOM, no reconciliation layer, and significantly less runtime code. What the browser gets is essentially optimized vanilla JavaScript customized for your component tree.
+
+Example Code =>
+
+```js
+<script>
+    let count = $state(0);
+</script>
+
+<button
+    onclick={() => count++}
+>
+    {count}
+</button>
+
+```
 
 ---
 
