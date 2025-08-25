@@ -8,6 +8,8 @@ category: Frameworks
 draft: false
 ---
 
+# Introduction
+
 So, most developers start their web development journey with the common roadmap of HTML (Hyper Text Markup Language) -> CSS (Cascading Style Sheets) -> JS (JavaScript). And they stop there, the ones serious about Web Development put their foot into the swamp of React and I was one of them too.
 
 [React](https://react.dev), developed by Meta itself, is the most popular framework for creating web applications. Its component-based structure, hook system, and [virtual DOM](https://legacy.reactjs.org/docs/faq-internals.html) reconciliation process have shaped the way millions of developers think about web interfaces. But that dominance also means many developers assume React’s structure is simply *how frontend frameworks work*.
@@ -22,17 +24,17 @@ In React, the application is a tree of **components** starting from the root and
 
 So, React’s structure has three major layers:
 
-1. **Components** - the building blocks of the application, describing structure and look of the UI.
-2. **Hooks and States** - `useState`, `useReducer`, `useContext`, and a host of third-party libraries that hold and manage application state
+1. **Components** - the fundamental building block of the application, describing structure and look of the UI.
+2. **Hooks and States** - `useState`, `useReducer`, `useContext`, and a other third-party libraries that hold and manage application state
 3. **Runtime Reconciliation** - the virtual DOM diffing algorithm that determines how to update the actual DOM based on state changes.
 
-The advantage of this structure is familiarity and flexibility. The disadvantage is it's weight. React handles the mechanics of change for you but at the cost of shipping the runtime that makes reconciliation work, even if you are only building a simple counter.
+The advantage of this structure is familiarity and flexibility. The disadvantage is it's weight. React handles the mechanics of change for you but at the cost of shipping the runtime that makes reconciliation work. Even if you are only building a simple counter, it still sends the whole runtime to the browser.
 
 ---
 
 # The Structure of a Svelte 5 Application
 
-Svelte really changed the game, rather than requiring a runtime for the identification of changed Nodes and selective re-render of those components, **svelte compiles its components into plain javascript at build time** which is totally 360 of the React in way.
+Svelte really changed the game, rather than requiring a runtime for the identification of changed Nodes and selective re-render of those components, **svelte compiles its components into plain javascript at build time** which is totally 360 of React in way.
 
 Parts of the Svelte's Structure:
 
@@ -40,19 +42,19 @@ Parts of the Svelte's Structure:
 2. **Runes** replace hooks. A rune like `$state(0)` declares state. A rune like `$derived(expr)` computes a value from other state. `$effect(() => { ... })` defines what React would call a "side effect" - code that runs in response to data changes but doesn’t itself produce data for the UI. Importantly, because runes are compile-time hints, the compiler wires dependencies automatically.
 3. **Reactivity** is not a runtime guessing game. In React, you declare dependencies manually in `useEffect` or `useMemo`, *(Introduction of **React Compiler** did fixed some things but it needs more work)*. Forgetting or mis-declaring them is a common source of bugs *(I just faced them a while ago and believe me you don't want to deal with them)*. In Svelte, reactivity is **fine-grained and explicit**: if `count` is used inside `$derived` or `$effect`, the compiler knows exactly when to update.
 
-This structure means a Svelte 5 application has no virtual DOM, no reconciliation layer, and significantly less runtime code. What ships to the browser is essentially optimized vanilla JavaScript customized for your component tree.
+This structure means a Svelte 5 application has no virtual DOM, no reconciliation layer, and significantly less runtime code. What the browser gets is essentially optimized vanilla JavaScript customized for your component tree.
 
 ---
 
 ## What is Reactivity ?
 
-The term **"reactivity"** describes how a framework updates the UI when data changes.  
+The term ***"reactivity"*** describes how a framework updates the UI when the data changes.  
 
-In **React**, reactivity is powered by state and re-renders. You call `setState`, React re-runs the component, then the Virtual DOM decides what needs updating. This works well, but every change re-executes the component function, even if only one value changed.  
+In **React**, reactivity is powered by state and re-renders. You call `setState`, React re-runs the component, then the Virtual DOM decides what needs updating with its diffing algorithm. This works well, but every change re-executes the component function, even if only one value changed which is very frustating when you're calling an API, you'll need to properly manage it and use caching or something to prevent additional caches.  
 
 In **Svelte**, reactivity is built into the compiler. Assigning to a variable (`count++`) directly updates only the DOM nodes that depend on it. No Virtual DOM, no component re-runs - just precise updates.  
 
-The difference is subtle but important: React reactivity is **runtime-driven**, while Svelte reactivity is **compile-time optimized**.
+The difference is subtle but important: React reactivity is ***runtime-driven***, while Svelte reactivity is ***compile-time optimized*** (very less is left for the browser to do when using svelte, which is one of the reason svelte is much faster).
 
 > Source: [Reactivity in Modern Web Development](https://medium.com/approved-tech/understanding-reactivity-and-state-management-in-modern-web-development-c3b7a354a515)
 
@@ -60,27 +62,27 @@ The difference is subtle but important: React reactivity is **runtime-driven**, 
 
 ## What Side Effects Actually Mean
 
-The phrase **"side effect"** gets thrown around casually in frontend development, but let’s pin it down. A *side effect* is any action your code performs that reaches outside of its own scope and alters something external. Examples include logging to the console, updating localStorage, starting an interval timer, or making a network request.
+A **side effect** is any action your code performs that reaches outside of its own scope *(by this I mean it reaches out of the useEffect scope)* and alters something external. For example logging to the console, updating localStorage, starting an interval timer, or making a network request.
 
-In React, side effects live in `useEffect`. You declare dependencies, React runs the effect when they change, and you may return a cleanup function. In practice, this can be error-prone: forgetting dependencies leads to stale values, while adding too many creates unnecessary re-runs.
+In React, side effects are contained in `useEffect`. You declare dependencies, React runs the effect when they change, and you may return a cleanup function. This is very error-prone in practice: forgetting dependencies leads to stale/unchanged values *(The most dangerous part is forgetting even writing the empty array [], if this happens then it keeps re-running on and on)*, while adding too many creates unnecessary re-runs.
 
-In Svelte 5, side effects live inside `$effect`. The difference is subtle but important: the compiler analyzes your effect and automatically tracks which values it depends on. You do not manually declare dependencies, so there is less room for mistakes. Moreover, because `$effect` is reserved only for side effects, not computations, it reduces the temptation to use it as a catch-all. Computed values belong in `$derived`, keeping data transformations pure and effects truly external.
+In Svelte 5, side effects are inside `$effect`. The difference is subtle but important: the compiler analyzes your effect and automatically tracks which values it depends on. You do not manually declare dependencies, so there is less room for mistakes *(Almost no room)*. Moreover, because `$effect` is reserved only for side effects, not computations, it reduces the cases in which value is computed inside `$effect`. Computed values belong in `$derived`, keeping data transformations and effects isolated but still connected.
 
-> Source: [`$effect`](https://svelte.dev/docs/svelte/$effect) & [`useEffect`](https://react.dev/reference/react/useEffect)
+> Source: [`$effect`](https://svelte.dev/docs/svelte/$effect) and [`useEffect`](https://react.dev/reference/react/useEffect)
 
 ---
 
 # State and Data Across the App
 
-Both frameworks need a way to manage state across components. In React, this typically means `useContext` or an external state library like [Redux](https://redux.js.org/), [Zustand](https://zustand.docs.pmnd.rs/), etc. In Svelte, the answer is **stores**.
+Both frameworks need a way to manage state across components. In React, this generally means using `useContext` API or an external state library like [Redux](https://redux.js.org/), [Zustand](https://zustand.docs.pmnd.rs/), etc but Svelte, gives us the inbuilt solution i.e. the **stores**.
 
-A store is simply a reactive object with a `subscribe` method. Svelte provides a small set out of the box:
+A store is simply a reactive object with a `subscribe` method *(Subscribe just refers to the 'change this when the store value changes')*. Svelte provides a 3 types of stores by default (more can be made easily):
 
-* **`writable`**: holds a value that can be updated.
-* **`readable`**: holds a value but can only be updated internally (useful for derived or system state).
-* **`derived`**: computes a new store based on others.
+- **`writable store`**: contains a value that can be updated and read.
+- **`readable store`**: contains a value that can be read but can only be updated internally (useful for derived or system state).
+- **`derived store`**: computes a new store based on others.
 
-The compiler adds sugar: prefixing a store variable with `$` inside a component automatically subscribes and unsubscribes it. That’s why you can write `{$count}` inside a template and get the live value.
+One of the things that I like is that there is very less boilerplate code compared to Redux, etc and prefixing a store variable with `$` inside a component automatically subscribes and unsubscribes it. That’s why you can write `{$count}` inside a template and get the live value.
 
 The line between runes and stores is clear: runes are for *local component state*, stores are for *shared global or cross-component state*.
 
@@ -91,40 +93,22 @@ The line between runes and stores is clear: runes are for *local component state
 # The Role of Data Loading
 
 ## SvelteKit
-[SvelteKit](https://svelte.dev/docs/kit/introduction) is a modern, full-stack framework built on top of Svelte that makes it easy to create fast web apps.. It handles routing, server-side rendering, API endpoints, and static site generation all in singular unified system.
+[SvelteKit](https://svelte.dev/docs/kit/introduction) is a modern, full-stack framework built on top of Svelte that makes it easy to create fast web apps. It handles routing, server-side rendering, API endpoints, and static site generation all *(almost everything you might need)* in singular unified system.
 
-One area where SvelteKit diverges sharply from React’s ecosystem is **data loading**. In React, data loading conventions vary by framework. Next.js, for example, uses server components, route handlers, and `getServerSideProps` or `getStaticProps` (depending on the version you’re working with). It’s powerful but can feel fragmented.
+One of the areas where SvelteKit differenciates highly from React’s ecosystem is **data loading**. In React, data loading conventions vary by framework. Next.js, for example, uses server components, route handlers, and `getServerSideProps` or `getStaticProps` (depending on the version you’re working with). It’s powerful but can feel fragmented.
 
-SvelteKit simplifies this with a single concept: the **`load` function**. Every route or layout can export a `load` function, which fetches or computes data before rendering. Crucially, there are two flavors:
+SvelteKit simplifies this very easily with a single concept: the **`load` function**. Every route or layout can export a `load` function, which fetches or computes data before rendering *(SvelteKit also prerenders these load functions by default)*. They render on client or server depending on the filename:
 
 * **`+page.ts` / `+layout.ts`**: runs on both client and server, perfect for public data or anything that must survive client-side navigation.
 * **`+page.server.ts` / `+layout.server.ts`**: runs only on the server, ideal for accessing databases, filesystems, or secret environment variables.
 
-This clear separation removes guesswork. When you read a SvelteKit codebase, you know exactly what runs on the server and what may run in the browser.
+This clear separation improves readability and understanding. When you read a SvelteKit codebase, you know exactly what runs on the server and what may run in the browser.
 
 > Source: [load functions](https://svelte.dev/docs/kit/load)
 
 ---
 
-# A Practical Comparison
-
-Let’s have a bit of TL;DR.
-
-### **React’s Model**
-
-* Structure: components return virtual DOM, React runtime diffs and updates real DOM.
-* State: hooks manage local state; external libraries manage global state.
-* Side effects: `useEffect` runs external code, with manually declared dependencies.
-* Data loading: depends on framework, with patterns that vary between Next.js, Remix, and others.
-
-### **Svelte 5’s Model**
-
-* Structure: components compile into direct DOM operations; no runtime reconciliation layer.
-* State: runes (`$state`, `$derived`, `$effect`) handle local reactive state and side effects.
-* Shared state: stores (`writable`, `readable`, `derived`) provide reactive values across components.
-* Data loading: SvelteKit’s `load` functions, explicit and scoped to routes.
-
-This difference in structure is not just academic. It changes the weight of the code you ship, the likelihood of bugs from dependency mismatches, and the mental overhead required to understand what your app is doing at any given time.
+These differences in structure affect a big deal. It changes the weight of the code you ship, the possibility of bugs from dependency mismatches, and the brain damage required to understand what your app is doing at any given time.
 
 ---
 
